@@ -1,35 +1,91 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Card from "./components/Card";
+import ListGroup from "./components/ListGroup";
+import Input from "./components/Input";
+import Alert from "./components/Alert";
+import DelayComponent from "./components/DelayComponent";
+
+import profile_pic from "./assets/cat.jpeg";
+import { useEffect, useState } from "react";
+
+const ALERT_FADE_TIMEOUT = 5000;
 
 function App() {
-  const [count, setCount] = useState(0)
+  // let todos = ["milk", "beef", "rice", "pork"];
+  const [todos, setNewTodos] = useState<string[]>([
+    "milk",
+    "beef",
+    "rice",
+    "pork",
+  ]);
+
+  const [alertDuplicatedItemVisible, setAlertDuplicatedItemVisibility] =
+    useState(false);
+  const [alertSuccessItemVisible, setAlertSuccessItemVisibility] =
+    useState(false);
+
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
+
+  const handleDeleteItemFromTodoList = (item: string) => {
+    const newTodos = todos.filter((t) => t !== item);
+    setNewTodos(newTodos);
+
+    console.log("Deleted " + item + " from to-do list");
+    // console.log(todos);
+  };
+  const handleAddItemToTodoList = (item: string) => {
+    if (todos.includes(item)) {
+      setAlertDuplicatedItemVisibility(true);
+    } else {
+      setAlertSuccessItemVisibility(true);
+
+      setTimeout(() => {
+        setAlertSuccessItemVisibility(false);
+      }, ALERT_FADE_TIMEOUT);
+
+      setNewTodos([...todos, item]);
+
+      console.log("Added " + item + " to to-do list");
+      // console.log(todos);
+    }
+  };
+
+  useEffect(() => {});
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>To-Do List</h1>
+        {/* <Card picture={profile_pic} description="hehehe" /> */}
+        <Input
+          placeholderText="New to-do Item"
+          onSubmitInput={handleAddItemToTodoList}
+        ></Input>
+        {alertDuplicatedItemVisible && (
+          <Alert
+            alertType="warning"
+            onClose={() => setAlertDuplicatedItemVisibility(false)}
+          >
+            This item has already existed
+          </Alert>
+        )}
+        {alertSuccessItemVisible && (
+          <Alert
+            alertType="success"
+            onClose={() => setAlertSuccessItemVisibility(false)}
+          >
+            Successfully added new item
+          </Alert>
+        )}
+
+        <ListGroup
+          itemList={todos}
+          onDeleteItem={handleDeleteItemFromTodoList}
+        ></ListGroup>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
