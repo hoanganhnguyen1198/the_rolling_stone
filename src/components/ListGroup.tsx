@@ -8,7 +8,7 @@ const ListGroup = ({ itemList, onDeleteItem }: ListGroupProps) => {
   return (
     <>
       {itemList.length === 0 && <p>No item yet</p>}
-      <ul className="list-group">
+      <ul className="list-group col-sm-10">
         {itemList.map((item, index) => (
           <li className="list-group-item" key={index}>
             <input
@@ -20,7 +20,7 @@ const ListGroup = ({ itemList, onDeleteItem }: ListGroupProps) => {
             <label className="form-check-label">{item}</label>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close float-end"
               aria-label="Close"
               onClick={() => onDeleteItem(item)}
             ></button>

@@ -53,34 +53,52 @@ function App() {
 
   return (
     <>
-      <div>
-        <h1>To-Do List</h1>
-        {/* <Card picture={profile_pic} description="hehehe" /> */}
-        <Input
-          placeholderText="New to-do Item"
-          onSubmitInput={handleAddItemToTodoList}
-        ></Input>
-        {alertDuplicatedItemVisible && (
-          <Alert
-            alertType="warning"
-            onClose={() => setAlertDuplicatedItemVisibility(false)}
-          >
-            This item has already existed
-          </Alert>
-        )}
-        {alertSuccessItemVisible && (
-          <Alert
-            alertType="success"
-            onClose={() => setAlertSuccessItemVisibility(false)}
-          >
-            Successfully added new item
-          </Alert>
-        )}
+      <div className="container-fluid text-center">
+        <h1 className="display-5 font-monospace fw-bold p-3 mb-2 bg-primary-subtle text-primary-emphasis">
+          To-Do List
+        </h1>
+      </div>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-8 p-2">
+            <Input
+              placeholderText="New to-do Item"
+              onSubmitInput={handleAddItemToTodoList}
+            ></Input>
+            {alertDuplicatedItemVisible && (
+              <Alert
+                alertType="warning"
+                onClose={() => setAlertDuplicatedItemVisibility(false)}
+              >
+                This item has already existed
+              </Alert>
+            )}
+            {alertSuccessItemVisible && (
+              <Alert
+                alertType="success"
+                onClose={() => setAlertSuccessItemVisibility(false)}
+              >
+                Successfully added new item
+              </Alert>
+            )}
 
-        <ListGroup
-          itemList={todos}
-          onDeleteItem={handleDeleteItemFromTodoList}
-        ></ListGroup>
+            <ListGroup
+              itemList={todos}
+              onDeleteItem={handleDeleteItemFromTodoList}
+            ></ListGroup>
+          </div>
+          <div className="col-4 p-2 text-center">
+            <Card
+              picture={profile_pic}
+              description={
+                <>
+                  <h2>Hoang Anh Nguyen</h2>
+                  <p>hehehehe</p>
+                </>
+              }
+            />
+          </div>
+        </div>
       </div>
     </>
   );

@@ -37,11 +37,8 @@ const Input = ({
 
   return (
     <>
-      <form
-        className="row row-cols-lg-auto g-3 align-items-center"
-        onSubmit={handleSubmitForm}
-      >
-        <div className="col-12">
+      <form className="row align-items-center" onSubmit={handleSubmitForm}>
+        <div className="col-sm-10">
           <div className="input-group">
             <input
               type="text"
@@ -54,7 +51,7 @@ const Input = ({
           </div>
         </div>
 
-        <div className="col-12">
+        <div className="col-sm">
           <button type="submit" className="btn btn-primary">
             {buttonName}
           </button>

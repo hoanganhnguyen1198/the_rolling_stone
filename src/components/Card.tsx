@@ -1,8 +1,9 @@
+import { ReactNode } from "react";
 
 interface CardProps {
   picture: string;
   alt?: string;
-  description: string;
+  description: ReactNode;
 }
 
 const Card = ({ picture, alt = "picture", description }: CardProps) => {
@@ -10,7 +11,7 @@ const Card = ({ picture, alt = "picture", description }: CardProps) => {
     <div className="card" style={{ width: "18rem" }}>
       <img src={picture} className="card-img-top" alt={alt} />
       <div className="card-body">
-        <p className="card-text">{description}</p>
+        <div className="card-text">{description}</div>
       </div>
     </div>
   );
