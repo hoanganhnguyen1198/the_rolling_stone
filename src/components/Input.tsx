@@ -6,16 +6,16 @@ interface InputProps {
   buttonName?: string;
 
   onSubmitInput: (input: string) => void;
+  onAlert: (alertType: typesOfAlert, alertContent: string) => void;
 }
 
 const Input = ({
   placeholderText,
   buttonName = "Add",
   onSubmitInput,
+  onAlert,
 }: InputProps) => {
   const [inputValue, setInputValue] = useState("");
-  const [alertEmptyInputVisible, setAlertEmptyInputVisibility] =
-    useState(false);
 
   // Handle input change
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ const Input = ({
 
       setInputValue("");
     } else {
-      setAlertEmptyInputVisibility(true);
+      onAlert(typesOfAlert.danger, "Input should not be empty");
     }
   };
 
@@ -57,16 +57,6 @@ const Input = ({
           </button>
         </div>
       </form>
-
-      {/* Show Alert if an empty item is added */}
-      {alertEmptyInputVisible && (
-        <Alert
-          alertType={typesOfAlert.danger}
-          onClose={() => setAlertEmptyInputVisibility(false)}
-        >
-          Input should not be empty
-        </Alert>
-      )}
     </>
   );
 };

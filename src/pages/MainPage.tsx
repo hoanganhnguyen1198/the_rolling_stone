@@ -1,13 +1,19 @@
 import Card from "../components/Card";
 import ListGroup from "../components/ListGroup";
 import Input from "../components/Input";
-import Alert from "../components/Alert";
+import Alert, { typesOfAlert } from "../components/Alert";
 // import DelayComponent from "./components/DelayComponent";
 
 import profile_pic from "../assets/cat.jpeg";
 import { useEffect, useState } from "react";
 
-const ALERT_FADE_TIMEOUT = 5000;
+const ALERT_FADE_TIMEOUT = 2000;
+
+interface inputAlert {
+  alertVisible: boolean;
+  alertType: typesOfAlert;
+  alertContent: string;
+}
 
 const MainPage = () => {
   const [todos, setNewTodos] = useState<string[]>([
@@ -17,10 +23,11 @@ const MainPage = () => {
     "pork",
   ]);
 
-  const [alertDuplicatedItemVisible, setAlertDuplicatedItemVisibility] =
-    useState(false);
-  const [alertSuccessItemVisible, setAlertSuccessItemVisibility] =
-    useState(false);
+  const [todoAlert, setTodoAlertVisibility] = useState<inputAlert>({
+    alertVisible: false,
+    alertType: typesOfAlert.info,
+    alertContent: "",
+  });
 
   useEffect(() => {
     console.log(todos);
@@ -35,19 +42,33 @@ const MainPage = () => {
   };
   const handleAddItemToTodoList = (item: string) => {
     if (todos.includes(item)) {
-      setAlertDuplicatedItemVisibility(true);
+      // setAlertDuplicatedItemVisibility(true);
+      handleAlert(typesOfAlert.warning, "This item has already existed");
     } else {
-      setAlertSuccessItemVisibility(true);
-
-      setTimeout(() => {
-        setAlertSuccessItemVisibility(false);
-      }, ALERT_FADE_TIMEOUT);
+      // setAlertSuccessItemVisibility(true);
+      handleAlert(typesOfAlert.success, "Successfully added new item");
 
       setNewTodos([...todos, item]);
 
       console.log("Added " + item + " to to-do list");
       // console.log(todos);
     }
+
+    setTimeout(() => {
+      // setAlertSuccessItemVisibility(false);
+      setTodoAlertVisibility({
+        alertVisible: false,
+        alertType: typesOfAlert.info,
+        alertContent: "",
+      });
+    }, ALERT_FADE_TIMEOUT);
+  };
+  const handleAlert = (alertType: typesOfAlert, alertContent: string) => {
+    setTodoAlertVisibility({
+      alertVisible: true,
+      alertType: alertType,
+      alertContent: alertContent,
+    });
   };
   return (
     <>
@@ -62,21 +83,20 @@ const MainPage = () => {
             <Input
               placeholderText="New to-do Item"
               onSubmitInput={handleAddItemToTodoList}
+              onAlert={handleAlert}
             ></Input>
-            {alertDuplicatedItemVisible && (
+            {todoAlert.alertVisible && (
               <Alert
-                alertType="warning"
-                onClose={() => setAlertDuplicatedItemVisibility(false)}
+                alertType={todoAlert.alertType}
+                onClose={() =>
+                  setTodoAlertVisibility({
+                    alertVisible: false,
+                    alertType: typesOfAlert.info,
+                    alertContent: "",
+                  })
+                }
               >
-                This item has already existed
-              </Alert>
-            )}
-            {alertSuccessItemVisible && (
-              <Alert
-                alertType="success"
-                onClose={() => setAlertSuccessItemVisibility(false)}
-              >
-                Successfully added new item
+                {todoAlert.alertContent}
               </Alert>
             )}
 
