@@ -24,6 +24,10 @@ function App() {
     setTokenSignUp(true);
     navigate("/signup", { replace: true });
   };
+  const handleFinishSignUp = () => {
+    setTokenSignUp(false);
+    navigate("/", { replace: true });
+  };
 
   useEffect(() => {
     if (!token && !tokenSignUp) {
@@ -48,7 +52,10 @@ function App() {
           path="/main"
           element={<MainPage onSignOut={handleSignOut} />}
         ></Route>
-        <Route path="/signup" element={<SignUpPage />}></Route>
+        <Route
+          path="/signup"
+          element={<SignUpPage onFinishSignUp={handleFinishSignUp} />}
+        ></Route>
         <Route path="/*" element={<NoPage />}></Route>
       </Routes>
     </>

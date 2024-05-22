@@ -4,7 +4,9 @@ import SignUpForm from "../components/SignUpForm";
 
 const EMAIL: string = "nguyenhoanganha1@gmail.com";
 
-interface SignUpProps {}
+interface SignUpProps {
+  onFinishSignUp: () => void;
+}
 
 interface SignUpAlert {
   alertVisible: boolean;
@@ -12,7 +14,7 @@ interface SignUpAlert {
   alertContent: string;
 }
 
-const SignUpPage = () => {
+const SignUpPage = ({ onFinishSignUp }: SignUpProps) => {
   const [signUpAlert, setSignUpAlertVisibility] = useState<SignUpAlert>({
     alertVisible: false,
     alertType: typesOfAlert.info,
@@ -32,6 +34,7 @@ const SignUpPage = () => {
     } else {
       // ToDo
       handleAlert(typesOfAlert.success, "Account created successfully");
+      onFinishSignUp();
     }
   };
 
@@ -58,7 +61,7 @@ const SignUpPage = () => {
           className="btn btn-link"
           type="button"
           value="Already has an account?"
-          onClick={() => {}}
+          onClick={() => onFinishSignUp()}
         />
       </div>
     </>
