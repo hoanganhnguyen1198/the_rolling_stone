@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <LoginPage></LoginPage>
-      <MainPage></MainPage>
+      {/* <MainPage></MainPage> */}
     </>
   );
 }

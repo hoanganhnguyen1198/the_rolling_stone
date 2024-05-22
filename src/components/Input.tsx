@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import Alert from "./Alert";
+import Alert, { typesOfAlert } from "./Alert";
 
 interface InputProps {
   placeholderText: string;
@@ -61,7 +61,7 @@ const Input = ({
       {/* Show Alert if an empty item is added */}
       {alertEmptyInputVisible && (
         <Alert
-          alertType="danger"
+          alertType={typesOfAlert.danger}
           onClose={() => setAlertEmptyInputVisibility(false)}
         >
           Input should not be empty

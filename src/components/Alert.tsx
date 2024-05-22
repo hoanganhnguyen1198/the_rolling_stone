@@ -1,7 +1,14 @@
 import { ReactNode } from "react";
 
+export enum typesOfAlert {
+  success = "success",
+  danger = "danger",
+  warning = "warning",
+  info = "info",
+}
+
 interface AlertProps {
-  alertType: "success" | "danger" | "warning" | "info";
+  alertType: typesOfAlert;
   children: ReactNode;
   onClose: () => void;
 }
