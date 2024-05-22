@@ -9,13 +9,17 @@ import { useEffect, useState } from "react";
 
 const ALERT_FADE_TIMEOUT = 2000;
 
+interface MainPageProps {
+  onSignOut: () => void;
+}
+
 interface inputAlert {
   alertVisible: boolean;
   alertType: typesOfAlert;
   alertContent: string;
 }
 
-const MainPage = () => {
+const MainPage = ({ onSignOut }: MainPageProps) => {
   const [todos, setNewTodos] = useState<string[]>([
     "milk",
     "beef",
@@ -72,11 +76,6 @@ const MainPage = () => {
   };
   return (
     <>
-      <div className="container-fluid text-center">
-        <h1 className="display-5 font-monospace fw-bold p-3 mb-2 bg-primary-subtle text-primary-emphasis">
-          To-Do List
-        </h1>
-      </div>
       <div className="container-fluid">
         <div className="row">
           <div className="col-8 p-2">
@@ -112,6 +111,14 @@ const MainPage = () => {
                 <>
                   <h2>Hoang Anh Nguyen</h2>
                   <p>hehehehe</p>
+                  <input
+                    type="button"
+                    className="btn btn-light"
+                    value="Sign out"
+                    onClick={() => {
+                      onSignOut();
+                    }}
+                  />
                 </>
               }
             />

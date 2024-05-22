@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import Alert, { typesOfAlert } from "./Alert";
+import { typesOfAlert } from "./Alert";
 
 interface InputProps {
   placeholderText: string;

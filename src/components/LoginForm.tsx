@@ -1,5 +1,4 @@
 import { useState, FormEvent } from "react";
-import "../Macro";
 import { typesOfAlert } from "./Alert";
 
 interface LoginProps {
@@ -70,22 +69,9 @@ const LoginForm = ({ onSignIn, onAlert }: LoginProps) => {
           </div>
         </div>
         <div className="container text-center">
-          <div className="row">
-            <div className="col">
-              <button type="submit" className="btn btn-primary">
-                Sign in
-              </button>
-            </div>
-            <div className="col">
-              <input
-                className="btn btn-secondary"
-                type="button"
-                value="Sign up"
-                onClick={() => console.log("Sign up")}
-              />
-            </div>
-            <div className="col-6"></div>
-          </div>
+          <button type="submit" className="btn btn-primary">
+            Sign in
+          </button>
         </div>
       </form>
     </>
