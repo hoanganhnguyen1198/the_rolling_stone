@@ -113,7 +113,7 @@ const MainPage = ({ onSignOut }: MainPageProps) => {
                   <p>hehehehe</p>
                   <input
                     type="button"
-                    className="btn btn-light"
+                    className="btn btn-link"
                     value="Sign out"
                     onClick={() => {
                       onSignOut();
