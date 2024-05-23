@@ -12,8 +12,8 @@ function App() {
 
   const navigate = useNavigate();
 
-  const handleSuccessLogin = (newToken: boolean) => {
-    setToken(newToken);
+  const handleSuccessLogin = (_newToken: boolean) => {
+    setToken(true);
     navigate("/main", { replace: true });
   };
   const handleSignOut = () => {
