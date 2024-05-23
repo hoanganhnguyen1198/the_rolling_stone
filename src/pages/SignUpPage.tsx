@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Alert, { typesOfAlert } from "../components/Alert";
 import SignUpForm from "../components/SignUpForm";
+import axios from "axios";
 
 const EMAIL: string = "nguyenhoanganha1@gmail.com";
+
+const SIGNUP_URL: string = "todo";
 
 interface SignUpProps {
   onFinishSignUp: () => void;
@@ -28,13 +31,30 @@ const SignUpPage = ({ onFinishSignUp }: SignUpProps) => {
     });
   };
 
-  const handleSignUp = (email: string, password: string) => {
-    if (email === EMAIL) {
-      handleAlert(typesOfAlert.danger, "This account already exists");
-    } else {
-      // ToDo
-      handleAlert(typesOfAlert.success, "Account created successfully");
-      onFinishSignUp();
+  const handleSignUp = async (email: string, password: string) => {
+    try {
+      const response = await axios.post(
+        SIGNUP_URL,
+        JSON.stringify({ email: email, pwd: password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      if (response.status == 200) {
+        handleAlert(typesOfAlert.success, "Account created successfully");
+        onFinishSignUp();
+      } else if (response.status == 400) {
+        handleAlert(typesOfAlert.danger, "This account already exists");
+      } else {
+        handleAlert(
+          typesOfAlert.danger,
+          "Something wrong happened but I got no idea"
+        );
+      }
+      console.log(response);
+    } catch (err) {
+      console.log(err);
     }
   };
 
